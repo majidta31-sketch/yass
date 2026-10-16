@@ -1,0 +1,1345 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>حسابداری آنلاین ساختمان ۱۰ واحدی یاس</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #4f46e5;
+            --primary-hover: #4338ca;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-color: #1e293b;
+        }
+
+        body {
+            font-family: 'Vazirmatn', 'B Nazanin', Tahoma, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            padding-bottom: 50px;
+        }
+
+        /* Splash Screen Design */
+        #splashScreen {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #2e1065 0%, #3b0764 50%, #4c1d95 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .jasmine-bg-pattern {
+            position: absolute;
+            top: -50px;
+            right: -50px;
+            opacity: 0.15;
+            font-size: 20rem;
+            color: #f472b6;
+            pointer-events: none;
+        }
+
+        .jasmine-bg-pattern-2 {
+            position: absolute;
+            bottom: -50px;
+            left: -50px;
+            opacity: 0.15;
+            font-size: 20rem;
+            color: #a78bfa;
+            pointer-events: none;
+        }
+
+        .splash-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 24px;
+            padding: 40px;
+            max-width: 520px;
+            width: 100%;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35);
+            text-align: center;
+            z-index: 10;
+        }
+
+        .jasmine-avatar {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #f43f5e 0%, #8b5cf6 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px auto;
+            color: white;
+            box-shadow: 0 10px 25px rgba(244, 63, 94, 0.4);
+        }
+
+        .splash-title {
+            font-weight: 800;
+            color: #1e1b4b;
+            font-size: 1.8rem;
+            margin-bottom: 5px;
+        }
+
+        .splash-subtitle {
+            color: #6366f1;
+            font-weight: 600;
+            font-size: 1.05rem;
+            margin-bottom: 25px;
+        }
+
+        .login-toggle-btn {
+            border-radius: 12px;
+            padding: 12px 20px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .header-bg {
+            background: linear-gradient(135deg, #4f46e5 0%, #3730a3 100%);
+            color: white;
+            padding: 20px 0;
+            box-shadow: 0 4px 15px rgba(79, 70, 229, 0.2);
+        }
+
+        .nav-pills .nav-link {
+            color: #ffffff;
+            opacity: 0.8;
+            font-weight: 600;
+            border-radius: 8px;
+            padding: 8px 16px;
+            margin: 0 2px;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .nav-pills .nav-link.active, .nav-pills .nav-link:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            color: white;
+            opacity: 1;
+        }
+
+        .card-custom {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            border: none;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+            margin-top: 20px;
+            padding: 20px;
+        }
+
+        .table-custom th {
+            background-color: #f1f5f9;
+            color: #334155;
+            font-weight: 700;
+            text-align: center;
+            font-size: 0.85rem;
+        }
+
+        .table-custom td {
+            vertical-align: middle;
+            text-align: center;
+            font-size: 0.85rem;
+            padding: 6px !important;
+        }
+
+        .stat-card {
+            border-radius: 12px;
+            padding: 15px;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .stat-card.income { background: linear-gradient(135deg, #10b981 0%, #059669 100%); }
+        .stat-card.expense { background: linear-gradient(135deg, #f43f5e 0%, #e11d48 100%); }
+        .stat-card.balance { background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%); }
+        .stat-card.carryover { background: linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%); }
+
+        .btn-primary-custom {
+            background-color: var(--primary-color);
+            border: none;
+            color: white;
+        }
+
+        .btn-primary-custom:hover {
+            background-color: var(--primary-hover);
+            color: white;
+        }
+
+        .invoice-img-thumb {
+            width: 45px;
+            height: 45px;
+            object-fit: cover;
+            border-radius: 6px;
+            cursor: pointer;
+            border: 1px solid #cbd5e1;
+        }
+
+        .role-badge-admin {
+            background-color: #10b981;
+            color: white;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .role-badge-resident {
+            background-color: #0284c7;
+            color: white;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        @media print {
+            .no-print { display: none !important; }
+            body { background-color: #fff; padding: 0; font-size: 10pt; }
+            .card-custom { box-shadow: none; border: none; margin: 0; padding: 5px; }
+            .container { width: 100%; max-width: 100%; padding: 0; margin: 0; }
+            table { page-break-inside: avoid; }
+            .table-custom th, .table-custom td { padding: 4px !important; font-size: 9pt; }
+            @page { size: A4 landscape; margin: 1cm; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 🌸 SPLASH LOCK SCREEN 🌸 -->
+    <div id="splashScreen">
+        <i class="fa-solid fa-spa jasmine-bg-pattern"></i>
+        <i class="fa-solid fa-seedling jasmine-bg-pattern-2"></i>
+
+        <div class="splash-card">
+            <div class="jasmine-avatar">
+                <i class="fa-solid fa-spa fa-3x"></i>
+            </div>
+            <h3 class="splash-title">ساختمان یاس</h3>
+            <p class="splash-subtitle"><i class="fa-solid fa-building me-1"></i>سامانه آنلاین حسابداری و مدیریت ۱۰ واحدی</p>
+
+            <div class="d-flex justify-content-center gap-2 mb-4">
+                <button id="tabBtnAdmin" class="btn btn-warning login-toggle-btn px-4 text-dark" onclick="switchSplashTab('admin')">
+                    <i class="fa-solid fa-user-shield me-2"></i>ورود مدیریت
+                </button>
+                <button id="tabBtnResident" class="btn btn-outline-secondary login-toggle-btn px-4" onclick="switchSplashTab('resident')">
+                    <i class="fa-solid fa-user-check me-2"></i>ورود ساکنین
+                </button>
+            </div>
+
+            <!-- Form Admin (Default) -->
+            <div id="splashAdminForm">
+                <div class="mb-4 text-start">
+                    <label class="form-label text-muted fw-bold small">رمز عبور مدیر ساختمان:</label>
+                    <input type="password" id="splashAdminPass" class="form-control form-select-lg text-center fw-bold dir-ltr" placeholder="****" onkeypress="if(event.key==='Enter') executeSplashAdminLogin()">
+                    <small class="text-muted d-block mt-1 fs-7 text-center">رمز پیش‌فرض مدیر: <b>1234</b></small>
+                </div>
+                <button class="btn btn-warning btn-lg w-100 fw-bold text-dark py-3 shadow" onclick="executeSplashAdminLogin()">
+                    <i class="fa-solid fa-key me-2"></i>ورود به پنل مدیریت کل
+                </button>
+            </div>
+
+            <!-- Form Resident -->
+            <div id="splashResidentForm" class="d-none">
+                <div class="mb-3 text-start">
+                    <label class="form-label text-muted fw-bold small">انتخاب واحد:</label>
+                    <select class="form-select form-select-lg text-center fw-bold" id="splashResidentSelect">
+                        <option value="واحد 1">واحد ۱ - آقای آسیایی</option>
+                        <option value="واحد 2">واحد ۲ - آقای باقری</option>
+                        <option value="واحد 3">واحد ۳ - آقای عبادی</option>
+                        <option value="واحد 4">واحد ۴ - خانم اکتسابی</option>
+                        <option value="واحد 5">واحد ۵ - آقای ندایی</option>
+                        <option value="واحد 6">واحد ۶ - آقای منظر</option>
+                        <option value="واحد 7">واحد ۷ - آقای اقدم</option>
+                        <option value="واحد 8">واحد ۸ - خانم لطفی</option>
+                        <option value="واحد 9">واحد ۹ - آقای مهری</option>
+                        <option value="واحد 10">واحد ۱۰ - آقای علیزاده</option>
+                    </select>
+                </div>
+                <div class="mb-4 text-start">
+                    <label class="form-label text-muted fw-bold small">رمز عبور اختصاصی واحد:</label>
+                    <input type="password" id="splashResidentPass" class="form-control form-select-lg text-center fw-bold dir-ltr" placeholder="****" onkeypress="if(event.key==='Enter') executeSplashResidentLogin()">
+                    <small class="text-muted d-block mt-1 fs-7 text-center">رمز پیش‌فرض شماره واحد است (مثلاً برای واحد ۱: <b>1</b>)</small>
+                </div>
+                <button class="btn btn-primary btn-lg w-100 fw-bold py-3 shadow" onclick="executeSplashResidentLogin()">
+                    <i class="fa-solid fa-right-to-bracket me-2"></i>ورود به حساب اختصاصی واحد
+                </button>
+            </div>
+
+
+
+            <hr class="my-4">
+            <small class="text-muted d-block"><i class="fa-solid fa-shield-halved me-1 text-success"></i>اطلاعات کاملاً محفوظ و ذخیره‌شده در دیتابیس ابری امن</small>
+        </div>
+    </div>
+
+
+    <!-- 🏢 MAIN DASHBOARD (HIDDEN UNTIL LOGIN) 🏢 -->
+    <div id="mainDashboard" class="d-none">
+        <!-- Header Section -->
+        <div class="header-bg no-print">
+            <div class="container">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <div class="d-flex align-items-center gap-3">
+                        <i class="fa-solid fa-spa fa-2x text-warning"></i>
+                        <div>
+                            <h4 class="mb-0 fw-bold">ساختمان یاس (حسابداری آنلاین)</h4>
+                            <div class="d-flex align-items-center gap-2 mt-1">
+                                <span id="roleBadge" class="role-badge-admin"><i class="fa-solid fa-user-shield me-1"></i>پنل مدیریت</span>
+                                <small class="opacity-75">دیتابیس ابری امن</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="d-flex align-items-center gap-2">
+                        <button id="changePassBtn" class="btn btn-sm btn-outline-warning d-none text-white fw-bold me-1" onclick="openChangePassModal()">
+                            <i class="fa-solid fa-lock-open me-1"></i>تغییر رمز مدیر
+                        </button>
+                        <button id="manageResidentPassBtn" class="btn btn-sm btn-outline-info d-none text-white fw-bold me-1" onclick="openManageResidentPassModal()">
+                            <i class="fa-solid fa-key me-1"></i>مدیریت رمز ساکنین
+                        </button>
+                        <button class="btn btn-sm btn-danger fw-bold me-1" onclick="logoutToSplash()" title="خروج از حساب">
+                            <i class="fa-solid fa-power-off me-1"></i>خروج
+                        </button>
+                        <button class="btn btn-sm btn-outline-light" onclick="exportBackup()" title="دانلود بک‌آپ کامل">
+                            <i class="fa-solid fa-download me-1"></i>پشتیبان
+                        </button>
+                        <label id="importBtnLabel" class="btn btn-sm btn-outline-light mb-0 cursor-pointer d-none">
+                            <i class="fa-solid fa-upload me-1"></i>بازیابی
+                            <input type="file" id="importFileInput" accept=".json" onchange="importBackup(event)" style="display: none;">
+                        </label>
+
+                        <select class="form-select form-select-sm bg-light text-dark fw-bold ms-2" id="yearSelect" onchange="changeYear(this.value)"></select>
+                        <select class="form-select form-select-sm bg-light text-dark fw-bold" id="monthSelect" onchange="changeMonth(this.value)">
+                            <option value="فروردین">فروردین</option>
+                            <option value="اردیبهشت">اردیبهشت</option>
+                            <option value="خرداد">خرداد</option>
+                            <option value="تیر">تیر</option>
+                            <option value="مرداد">مرداد</option>
+                            <option value="شهریور">شهریور</option>
+                            <option value="مهر" selected>مهر</option>
+                            <option value="آبان">آبان</option>
+                            <option value="آذر">آذر</option>
+                            <option value="دی">دی</option>
+                            <option value="بهمن">بهمن</option>
+                            <option value="اسفند">اسفند</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Navigation Tabs -->
+                <ul class="nav nav-pills justify-content-center" id="myTab" role="tablist">
+                    <li class="nav-item" id="navItemUnits" role="presentation">
+                        <button class="nav-link active" id="units-tab" data-bs-toggle="tab" data-bs-target="#units" type="button" role="tab">
+                            <i class="fa-solid fa-users me-2"></i>۱. مشخصات واحدها
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="expenses-tab" data-bs-toggle="tab" data-bs-target="#expenses" type="button" role="tab">
+                            <i class="fa-solid fa-file-invoice-dollar me-2"></i>۲. لیست هزینه‌ها و فاکتورها
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="charges-tab" data-bs-toggle="tab" data-bs-target="#charges" type="button" role="tab">
+                            <i class="fa-solid fa-calculator me-2"></i>۳. محاسبه شارژ و پرداخت‌ها
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="treasury-tab" data-bs-toggle="tab" data-bs-target="#treasury" type="button" role="tab">
+                            <i class="fa-solid fa-wallet me-2"></i>۴. صندوق و موجودی کل
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="container mt-4">
+            <div class="tab-content" id="myTabContent">
+
+                <!-- TAB 1: Units -->
+                <div class="tab-pane fade show active" id="units" role="tabpanel">
+                    <div class="card-custom">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <h5 class="fw-bold text-primary"><i class="fa-solid fa-user-gear me-2"></i>مشخصات واحدهای ساختمان و وضعیت «بدون ساکن»</h5>
+                            <button id="saveUnitsBtn" class="btn btn-primary-custom px-4 no-print d-none" onclick="saveUnitsToDB()">
+                                <i class="fa-solid fa-floppy-disk me-2"></i>ذخیره مشخصات واحدها در دیتابیس
+                            </button>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-hover table-bordered table-custom">
+                                <thead>
+                                    <tr>
+                                        <th>شماره واحد</th>
+                                        <th>نام ساکن ساختمان</th>
+                                        <th>شماره تماس (موبایل)</th>
+                                        <th>تعداد نفرات ساکن</th>
+                                        <th>وضعیت واحد (بدون ساکن / معاف از آب)</th>
+                                        <th class="no-print admin-only-col d-none">رمز عبور واحد</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="unitsTableBody"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB 2: Expenses -->
+                <div class="tab-pane fade" id="expenses" role="tabpanel">
+                    <div class="row">
+                        <!-- Form (Admin Only) -->
+                        <div class="col-lg-4 no-print d-none" id="expenseFormCol">
+                            <div class="card-custom">
+                                <h5 class="fw-bold text-primary mb-3" id="expenseFormTitle"><i class="fa-solid fa-plus-circle me-2"></i>ثبت هزینه و فاکتور جدید</h5>
+                                <form id="expenseForm" onsubmit="addOrUpdateExpense(event)">
+                                    <input type="hidden" id="editExpenseIndex" value="-1">
+                                    <div class="mb-3">
+                                        <label class="form-label">نوع هزینه</label>
+                                        <select class="form-select" id="expScope" onchange="toggleUnitSelect(this.value)">
+                                            <option value="general">هزینه عمومی ساختمان</option>
+                                            <option value="unit">هزینه اختصاصی یک واحد خاص</option>
+                                        </select>
+                                    </div>
+                                    <div class="mb-3 d-none" id="unitSelectDiv">
+                                        <label class="form-label">انتخاب واحد مربوطه</label>
+                                        <select class="form-select" id="expTargetUnit">
+                                            <option value="واحد 1">واحد ۱ - آقای آسیایی</option>
+                                            <option value="واحد 2">واحد ۲ - آقای باقری</option>
+                                            <option value="واحد 3">واحد ۳ - آقای عبادی</option>
+                                            <option value="واحد 4">واحد ۴ - خانم اکتسابی</option>
+                                            <option value="واحد 5">واحد ۵ - آقای ندایی</option>
+                                            <option value="واحد 6">واحد ۶ - آقای منظر</option>
+                                            <option value="واحد 7">واحد ۷ - آقای اقدم</option>
+                                            <option value="واحد 8">واحد ۸ - خانم لطفی</option>
+                                            <option value="واحد 9">واحد ۹ - آقای مهری</option>
+                                            <option value="واحد 10">واحد ۱۰ - آقای علیزاده</option>
+                                        </select>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">عنوان فاکتور / هزینه</label>
+                                        <select class="form-select" id="expType">
+                                            <option value="شارژ ثابت">شارژ ثابت</option>
+                                            <option value="قبض آب">قبض آب</option>
+                                            <option value="برق عمومی">برق عمومی</option>
+                                            <option value="نظافت">نظافت</option>
+                                            <option value="آسانسور">تعمیر / سرویس آسانسور</option>
+                                            <option value="سایر">سایر هزینه‌ها</option>
+                                        </select>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">مبلغ (تومان)</label>
+                                        <input type="text" class="form-control text-center dir-ltr" id="expAmount" placeholder="مثلاً ۱,۵۰۰,۰۰۰" oninput="formatInputThousand(this)" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">تاریخ</label>
+                                        <input type="text" class="form-control text-center" id="expDate" value="۱۴۰۵/۰۷/۱۰" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">شرح هزینه / توضیحات</label>
+                                        <input type="text" class="form-control" id="expDesc" placeholder="توضیحات یا بابت...">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">تصویر فاکتور (ذخیره در آرشیو)</label>
+                                        <input type="file" class="form-control" id="expImage" accept="image/*">
+                                        <small id="existingImageNotice" class="text-info d-none mt-1 d-block">تصویر فاکتور قبلی حفظ شده است.</small>
+                                    </div>
+                                    <div class="d-flex gap-2">
+                                        <button type="submit" id="expSubmitBtn" class="btn btn-primary-custom flex-grow-1 py-2 fw-bold">
+                                            <i class="fa-solid fa-check me-2"></i>ثبت فاکتور
+                                        </button>
+                                        <button type="button" id="expCancelBtn" class="btn btn-secondary d-none py-2 fw-bold" onclick="resetExpenseForm()">انصراف</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                        <!-- Expenses Table -->
+                        <div id="expenseTableCol" class="col-lg-12">
+                            <div class="card-custom">
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <h5 class="fw-bold text-primary mb-0"><i class="fa-solid fa-list-check me-2"></i>لیست فاکتورها (<span id="currentPeriodExpenseTitle">مهر ۱۴۰۵</span>)</h5>
+                                    <button class="btn btn-warning fw-bold text-dark no-print" onclick="window.print()">
+                                        <i class="fa-solid fa-print me-2"></i>پرینت گزارش هزینه‌ها
+                                    </button>
+                                </div>
+                                <div class="table-responsive">
+                                    <table class="table table-hover table-bordered table-custom">
+                                        <thead>
+                                            <tr>
+                                                <th>نوع هزینه</th>
+                                                <th>مربوط به</th>
+                                                <th>مبلغ (تومان)</th>
+                                                <th>تاریخ و شرح</th>
+                                                <th>تصویر فاکتور</th>
+                                                <th class="no-print exp-op-col d-none">عملیات</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="expensesTableBody"></tbody>
+                                        <tfoot>
+                                            <tr class="table-light fw-bold">
+                                                <td colspan="2">مجموع هزینه‌ها:</td>
+                                                <td id="totalExpenseAmountSum" class="text-danger">۰ تومان</td>
+                                                <td colspan="3"></td>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB 3: Charges Calculation -->
+                <div class="tab-pane fade" id="charges" role="tabpanel">
+                    <div class="card-custom">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <div>
+                                <h5 class="fw-bold text-primary"><i class="fa-solid fa-calculator me-2"></i>محاسبه شارژ ساختمان (<span id="currentPeriodTitle">مهر ۱۴۰۵</span>)</h5>
+                                <small class="text-muted" id="chargesSubTitle">شارژ ثابت (عین مبلغ) | آب (بر اساس نفرات - بدون ساکن معاف) | سایر هزینه‌ها (مساوی)</small>
+                            </div>
+                            <div class="d-flex gap-2 no-print">
+                                <span class="badge bg-success fs-6 p-2" id="totalFixedBadge">کل شارژ ثابت: ۰</span>
+                                <span class="badge bg-primary fs-6 p-2" id="totalWaterBadge">کل آب: ۰</span>
+                                <span class="badge bg-secondary fs-6 p-2" id="totalOtherBadge">کل سایر: ۰</span>
+                                <button class="btn btn-warning fw-bold text-dark" onclick="window.print()">
+                                    <i class="fa-solid fa-print me-2"></i>پرینت گزارش ماهانه
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="table-responsive">
+                            <table class="table table-hover table-bordered table-custom align-middle">
+                                <thead>
+                                    <tr>
+                                        <th>واحد</th>
+                                        <th>نام ساکن</th>
+                                        <th>نفرات / وضعیت</th>
+                                        <th>شارژ ثابت</th>
+                                        <th>سهم آب</th>
+                                        <th>سهم سایر</th>
+                                        <th>مانده قبل</th>
+                                        <th>کل بدهی</th>
+                                        <th>مبلغ پرداختی</th>
+                                        <th>مانده نهایی (انتقال خودکار)</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="chargesTableBody"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB 4: Treasury -->
+                <div class="tab-pane fade" id="treasury" role="tabpanel">
+                    <div class="row g-4 mb-4" id="treasuryStatsRow">
+                        <div class="col-md-3">
+                            <div class="stat-card income">
+                                <div>
+                                    <small>مجموع دریافتی واحدها</small>
+                                    <h4 class="fw-bold mt-1 mb-0" id="statIncome">۰ تومان</h4>
+                                </div>
+                                <i class="fa-solid fa-hand-holding-dollar fa-2x opacity-75"></i>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="stat-card expense">
+                                <div>
+                                    <small>مجموع هزینه‌ها</small>
+                                    <h4 class="fw-bold mt-1 mb-0" id="statExpense">۰ تومان</h4>
+                                </div>
+                                <i class="fa-solid fa-receipt fa-2x opacity-75"></i>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="stat-card balance">
+                                <div>
+                                    <small>موجودی این دوره</small>
+                                    <h4 class="fw-bold mt-1 mb-0" id="statBalance">۰ تومان</h4>
+                                </div>
+                                <i class="fa-solid fa-vault fa-2x opacity-75"></i>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="stat-card carryover">
+                                <div>
+                                    <small>موجودی کل (انباشته)</small>
+                                    <h4 class="fw-bold mt-1 mb-0" id="statTotalCarry">۰ تومان</h4>
+                                </div>
+                                <i class="fa-solid fa-piggy-bank fa-2x opacity-75"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Initial Balance Card (Admin editable) -->
+                    <div class="card-custom" id="initialBalanceCard">
+                        <div class="row align-items-center">
+                            <div class="col-md-8">
+                                <h5 class="fw-bold text-primary mb-1"><i class="fa-solid fa-coins me-2"></i>موجودی اولیه صندوق (انتقال از دوره‌های قبل / سرمایه اولیه)</h5>
+                                <p class="text-muted mb-0 small">این مبلغ به عنوان موجودی اولیه کل ساختمان به صندوق انباشته اضافه می‌شود.</p>
+                            </div>
+                            <div class="col-md-4 text-end">
+                                <div id="initialBalanceDisplay" class="fw-bold fs-5 text-success">۰ تومان</div>
+                                <div id="initialBalanceEditDiv" class="d-none mt-2">
+                                    <div class="input-group input-group-sm">
+                                        <input type="text" class="form-control text-center dir-ltr" id="initialBalanceInput" placeholder="۰" oninput="formatInputThousand(this)">
+                                        <button class="btn btn-success fw-bold" type="button" onclick="saveInitialBalance()">ثبت</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Resident Passwords Management Modal -->
+    <div class="modal fade" id="manageResidentPassModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-info text-white">
+                    <h5 class="modal-title fw-bold"><i class="fa-solid fa-key me-2"></i>مدیریت و تعیین رمز عبور ساکنین</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <p class="text-muted small">در این بخش می‌توانید برای هر واحد رمز عبور اختصاصی تعیین کنید تا ساکنان فقط به حساب خود دسترسی داشته باشند.</p>
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-custom">
+                            <thead>
+                                <tr>
+                                    <th>شماره واحد</th>
+                                    <th>نام ساکن</th>
+                                    <th>رمز عبور فعلی / جدید</th>
+                                    <th>عملیات</th>
+                                </tr>
+                            </thead>
+                            <tbody id="manageResidentPassTableBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">بستن</button>
+                    <button type="button" class="btn btn-primary-custom" onclick="saveAllResidentPasswords()">ذخیره همه رمزها</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Change Password Modal -->
+    <div class="modal fade" id="changePassModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered modal-sm">
+            <div class="modal-content">
+                <div class="modal-header bg-warning text-dark">
+                    <h6 class="modal-title fw-bold"><i class="fa-solid fa-key me-2"></i>تغییر رمز عبور مدیریت</h6>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label text-muted">رمز عبور فعلی:</label>
+                        <input type="password" id="currPassInput" class="form-control text-center" placeholder="****">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label text-muted">رمز عبور جدید:</label>
+                        <input type="password" id="newPassInput" class="form-control text-center" placeholder="****">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label text-muted">تکرار رمز عبور جدید:</label>
+                        <input type="password" id="confirmPassInput" class="form-control text-center" placeholder="****">
+                    </div>
+                    <button class="btn btn-warning w-100 py-2 fw-bold text-dark" onclick="saveNewPassword()">ثبت و ذخیره رمز جدید</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Image Modal -->
+    <div class="modal fade" id="imageModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">تصویر فاکتور (آرشیو آنلاین)</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <img id="modalImage" src="" alt="فاکتور" class="img-fluid rounded">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        let currentYear = "1405";
+        let currentMonth = "مهر";
+        let role = "locked"; // "admin", "resident", "locked"
+        let currentResidentUnit = null; // e.g. "واحد 1"
+        let adminPassword = "1234";
+
+        const yearSelect = document.getElementById('yearSelect');
+        yearSelect.innerHTML = '';
+        for(let y = 1405; y <= 1420; y++) {
+            let pName = y === 1405 ? "۱۴۰۵" : y === 1406 ? "۱۴۰۶" : y === 1407 ? "۱۴۰۷" : y === 1408 ? "۱۴۰۸" : y === 1409 ? "۱۴۰۹" : y === 1410 ? "۱۴۱۰" : y === 1411 ? "۱۴۱۱" : y === 1412 ? "۱۴۱۲" : y === 1413 ? "۱۴۱۳" : y === 1414 ? "۱۴۱۴" : y === 1415 ? "۱۴۱۵" : y === 1416 ? "۱۴۱۶" : y === 1417 ? "۱۴۱۷" : y === 1418 ? "۱۴۱۸" : y === 1419 ? "۱۴۱۹" : "۱۴۲۰";
+            let opt = document.createElement('option');
+            opt.value = y.toString();
+            opt.innerText = `سال مالی: ${pName}`;
+            if(y === 1405) opt.selected = true;
+            yearSelect.appendChild(opt);
+        }
+
+        let defaultUnits = [
+            { id: 1, name: "واحد 1", resident: "آقای آسیایی", phone: "09123456789", persons: 3, isEmpty: false, payment: 0, pass: "1" },
+            { id: 2, name: "واحد 2", resident: "آقای باقری", phone: "09198765432", persons: 4, isEmpty: false, payment: 0, pass: "2" },
+            { id: 3, name: "واحد 3", resident: "آقای عبادی", phone: "09111112233", persons: 3, isEmpty: false, payment: 0, pass: "3" },
+            { id: 4, name: "واحد 4", resident: "خانم اکتسابی", phone: "09122223344", persons: 4, isEmpty: false, payment: 0, pass: "4" },
+            { id: 5, name: "واحد 5", resident: "آقای ندایی", phone: "09133334455", persons: 3, isEmpty: false, payment: 0, pass: "5" },
+            { id: 6, name: "واحد 6", resident: "آقای منظر", phone: "09144445566", persons: 3, isEmpty: false, payment: 0, pass: "6" },
+            { id: 7, name: "واحد 7", resident: "آقای اقدم", phone: "09155556777", persons: 3, isEmpty: false, payment: 0, pass: "7" },
+            { id: 8, name: "واحد 8", resident: "خانم لطفی", phone: "09166667788", persons: 2, isEmpty: false, payment: 0, pass: "8" },
+            { id: 9, name: "واحد 9", resident: "آقای مهری", phone: "09177778999", persons: 4, isEmpty: false, payment: 0, pass: "9" },
+            { id: 10, name: "واحد 10", resident: "آقای علیزاده", phone: "09188889900", persons: 1, isEmpty: false, payment: 0, pass: "10" },
+        ];
+
+        let monthsList = ["فروردین", "اردیبهشت", "خرداد", "تیر", "مرداد", "شهریور", "مهر", "آبان", "آذر", "دی", "بهمن", "اسفند"];
+
+        let db = null;
+        let periodData = {};
+        let units = JSON.parse(JSON.stringify(defaultUnits));
+        let initialBalance = 0;
+
+        const dbName = "YasBuildingResidentDB";
+        const dbVersion = 1;
+
+        function initIndexedDB() {
+            return new Promise((resolve, reject) => {
+                let request = indexedDB.open(dbName, dbVersion);
+                request.onerror = (e) => reject(e.target.error);
+                request.onsuccess = (e) => resolve(db = e.target.result);
+                request.onupgradeneeded = (e) => {
+                    let dbInstance = e.target.result;
+                    if (!dbInstance.objectStoreNames.contains("storage")) dbInstance.createObjectStore("storage");
+                };
+            });
+        }
+
+        function dbGet(key) {
+            return new Promise((resolve) => {
+                if (!db) return resolve(null);
+                let tx = db.transaction(["storage"], "readonly");
+                let req = tx.objectStore("storage").get(key);
+                req.onsuccess = () => resolve(req.result);
+                req.onerror = () => resolve(null);
+            });
+        }
+
+        function dbPut(key, value) {
+            return new Promise((resolve) => {
+                if (!db) return resolve(false);
+                let tx = db.transaction(["storage"], "readwrite");
+                let req = tx.objectStore("storage").put(value, key);
+                req.onsuccess = () => resolve(true);
+                req.onerror = () => resolve(false);
+            });
+        }
+
+        async function persistAll() {
+            await dbPut("yas_units_base", units);
+            await dbPut("yas_period_data", periodData);
+            await dbPut("yas_admin_pass", adminPassword);
+            await dbPut("yas_initial_balance", initialBalance);
+        }
+
+        function switchSplashTab(mode) {
+            const btnRes = document.getElementById('tabBtnResident');
+            const btnAdm = document.getElementById('tabBtnAdmin');
+            const formRes = document.getElementById('splashResidentForm');
+            const formAdm = document.getElementById('splashAdminForm');
+
+            if(mode === 'resident') {
+                btnRes.className = 'btn btn-primary login-toggle-btn px-4';
+                btnAdm.className = 'btn btn-outline-secondary login-toggle-btn px-4';
+                formRes.classList.remove('d-none');
+                formAdm.classList.add('d-none');
+            } else {
+                btnAdm.className = 'btn btn-warning login-toggle-btn px-4 text-dark';
+                btnRes.className = 'btn btn-outline-secondary login-toggle-btn px-4';
+                formAdm.classList.remove('d-none');
+                formRes.classList.add('d-none');
+            }
+        }
+
+        function executeSplashResidentLogin() {
+            let uName = document.getElementById('splashResidentSelect').value;
+            let pass = document.getElementById('splashResidentPass').value;
+            let targetUnit = units.find(u => u.name === uName);
+
+            if (targetUnit && targetUnit.pass === pass) {
+                role = "resident";
+                currentResidentUnit = uName;
+                document.getElementById('splashScreen').classList.add('d-none');
+                document.getElementById('mainDashboard').classList.remove('d-none');
+                applyRoleView();
+            } else {
+                alert('رمز عبور اختصاصی این واحد اشتباه است.');
+            }
+        }
+
+        function executeSplashAdminLogin() {
+            let pass = document.getElementById('splashAdminPass').value;
+            if (pass === adminPassword) {
+                role = "admin";
+                currentResidentUnit = null;
+                document.getElementById('splashScreen').classList.add('d-none');
+                document.getElementById('mainDashboard').classList.remove('d-none');
+                applyRoleView();
+            } else {
+                alert('رمز عبور مدیر ساختمان اشتباه است.');
+            }
+        }
+
+        function logoutToSplash() {
+            role = "locked";
+            currentResidentUnit = null;
+            document.getElementById('splashResidentPass').value = '';
+            document.getElementById('splashAdminPass').value = '';
+            document.getElementById('mainDashboard').classList.add('d-none');
+            document.getElementById('splashScreen').classList.remove('d-none');
+        }
+
+        function applyRoleView() {
+            const roleBadge = document.getElementById('roleBadge');
+            const changePassBtn = document.getElementById('changePassBtn');
+            const manageResidentPassBtn = document.getElementById('manageResidentPassBtn');
+            const saveUnitsBtn = document.getElementById('saveUnitsBtn');
+            const importBtnLabel = document.getElementById('importBtnLabel');
+            const expenseFormCol = document.getElementById('expenseFormCol');
+            const expenseTableCol = document.getElementById('expenseTableCol');
+            const opCols = document.querySelectorAll('.exp-op-col');
+            const adminOnlyCols = document.querySelectorAll('.admin-only-col');
+            const initEditDiv = document.getElementById('initialBalanceEditDiv');
+            const navItemUnits = document.getElementById('navItemUnits');
+
+            if (role === "admin") {
+                roleBadge.className = 'role-badge-admin';
+                roleBadge.innerHTML = '<i class="fa-solid fa-user-shield me-1"></i>پنل مدیریت فعال است';
+                if(changePassBtn) changePassBtn.classList.remove('d-none');
+                if(manageResidentPassBtn) manageResidentPassBtn.classList.remove('d-none');
+                saveUnitsBtn.classList.remove('d-none');
+                importBtnLabel.classList.remove('d-none');
+                expenseFormCol.classList.remove('d-none');
+                expenseTableCol.className = 'col-lg-8';
+                opCols.forEach(el => el.classList.remove('d-none'));
+                adminOnlyCols.forEach(el => el.classList.remove('d-none'));
+                if(initEditDiv) initEditDiv.classList.remove('d-none');
+                if(navItemUnits) navItemUnits.style.display = 'block';
+            } else {
+                // Resident mode
+                if(navItemUnits) navItemUnits.style.display = 'none';
+                if(manageResidentPassBtn) manageResidentPassBtn.classList.add('d-none');
+                
+                // If active tab was units, switch to expenses tab
+                let activeTabPane = document.querySelector('.tab-pane.active');
+                if(activeTabPane && activeTabPane.id === 'units') {
+                    let firstValidTab = new bootstrap.Tab(document.getElementById('charges-tab'));
+                    firstValidTab.show();
+                }
+
+                roleBadge.className = 'role-badge-resident';
+                roleBadge.innerHTML = `<i class="fa-solid fa-user-check me-1"></i>پنل اختصاصی ساکن (${currentResidentUnit})`;
+
+                if(changePassBtn) changePassBtn.classList.add('d-none');
+                saveUnitsBtn.classList.add('d-none');
+                importBtnLabel.classList.add('d-none');
+                expenseFormCol.classList.add('d-none');
+                expenseTableCol.className = 'col-lg-12';
+                opCols.forEach(el => el.classList.add('d-none'));
+                adminOnlyCols.forEach(el => el.classList.add('d-none'));
+                if(initEditDiv) initEditDiv.classList.add('d-none');
+            }
+            renderAll();
+        }
+
+        function openChangePassModal() {
+            if(role !== "admin") return;
+            document.getElementById('currPassInput').value = '';
+            document.getElementById('newPassInput').value = '';
+            document.getElementById('confirmPassInput').value = '';
+            new bootstrap.Modal(document.getElementById('changePassModal')).show();
+        }
+
+        async function saveNewPassword() {
+            let curr = document.getElementById('currPassInput').value;
+            let newP = document.getElementById('newPassInput').value;
+            let confP = document.getElementById('confirmPassInput').value;
+
+            if (curr !== adminPassword) return alert('رمز عبور فعلی اشتباه است.');
+            if (!newP || newP.trim() === '') return alert('لطفاً رمز عبور جدید را وارد کنید.');
+            if (newP !== confP) return alert('تکرار رمز عبور مطابقت ندارد.');
+
+            adminPassword = newP.trim();
+            await persistAll();
+            alert('رمز عبور مدیریت با موفقیت تغییر یافت.');
+            bootstrap.Modal.getInstance(document.getElementById('changePassModal')).hide();
+        }
+
+        function getPeriodKey(year, month) { return `${year}-${month}`; }
+        function getPersianYearName(yStr) { return yStr; }
+        function getCurrentPeriodString() { return `${currentMonth} ${getPersianYearName(currentYear)}`; }
+
+        function ensurePeriodExists(year, month) {
+            let key = getPeriodKey(year, month);
+            if (!periodData[key]) {
+                let prevBalanceMap = {};
+                units.forEach(u => prevBalanceMap[u.name] = 0);
+
+                let mIdx = monthsList.indexOf(month);
+                let prevYear = year;
+                let prevMonth = mIdx > 0 ? monthsList[mIdx - 1] : "اسفند";
+                if (mIdx === 0) prevYear = (parseInt(year) - 1).toString();
+                
+                let prevKey = getPeriodKey(prevYear, prevMonth);
+                if (periodData[prevKey]) {
+                    let pData = periodData[prevKey];
+                    let waterExp = pData.expenses.filter(e => e.scope === 'general' && e.type === "قبض آب").reduce((s, e) => s + e.amount, 0);
+                    let otherExp = pData.expenses.filter(e => e.scope === 'general' && e.type !== "قبض آب" && e.type !== "شارژ ثابت").reduce((s, e) => s + e.amount, 0);
+                    let fixedTotal = pData.expenses.filter(e => e.type === "شارژ ثابت").reduce((s, e) => s + e.amount, 0);
+
+                    let activePersons = pData.unitsState.filter(u => !u.isEmpty).reduce((s, u) => s + u.persons, 0);
+                    let wPerP = activePersons > 0 ? waterExp / activePersons : 0;
+                    let oPerU = otherExp / pData.unitsState.length;
+
+                    pData.unitsState.forEach((u) => {
+                        let wShare = u.isEmpty ? 0 : Math.round(u.persons * wPerP);
+                        let oShare = Math.round(oPerU);
+                        let fShare = fixedTotal;
+                        let uSpec = pData.expenses.filter(e => e.scope === 'unit' && e.targetUnit === u.name).reduce((s, e) => s + e.amount, 0);
+                        let tDebt = wShare + oShare + fShare + uSpec + u.prevBalance;
+                        prevBalanceMap[u.name] = tDebt - u.payment;
+                    });
+                }
+
+                periodData[key] = {
+                    expenses: [],
+                    unitsState: units.map(u => ({ ...u, payment: 0, prevBalance: prevBalanceMap[u.name] || 0 }))
+                };
+                persistAll();
+            }
+            return periodData[key];
+        }
+
+        function getCurrentData() { return ensurePeriodExists(currentYear, currentMonth); }
+
+        function formatNum(num) {
+            if (num === null || num === undefined || isNaN(num)) return "۰";
+            return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, "،");
+        }
+
+        function parseRawNum(str) {
+            if(!str) return 0;
+            return parseInt(str.toString().replace(/[^0-9]/g, '')) || 0;
+        }
+
+        function formatInputThousand(input) {
+            let val = parseRawNum(input.value);
+            input.value = val > 0 ? formatNum(val) : '';
+        }
+
+        function toggleUnitSelect(val) {
+            const div = document.getElementById('unitSelectDiv');
+            if(val === 'unit') div.classList.remove('d-none');
+            else div.classList.add('d-none');
+        }
+
+        function changeYear(year) { currentYear = year; updateLabels(); renderAll(); }
+        function changeMonth(month) { currentMonth = month; updateLabels(); renderAll(); }
+
+        function updateLabels() {
+            let str = getCurrentPeriodString();
+            document.getElementById('currentPeriodTitle').innerText = str;
+            document.getElementById('currentPeriodExpenseTitle').innerText = str;
+        }
+
+        function renderUnits() {
+            let data = getCurrentData();
+            const tbody = document.getElementById('unitsTableBody');
+            tbody.innerHTML = '';
+            data.unitsState.forEach((u, index) => {
+                let isChecked = u.isEmpty ? 'checked' : '';
+                let disabledAttr = role === "admin" ? '' : 'disabled';
+                let adminPassTd = role === "admin" ? `<td><input type="text" class="form-control text-center dir-ltr" value="${u.pass || ''}" onchange="updateUnitPass(${index}, this.value)"></td>` : '';
+                
+                let rowStyle = (role === "resident" && u.name === currentResidentUnit) ? 'style="background-color: #e0f2fe; font-weight: bold;"' : '';
+
+                tbody.innerHTML += `
+                    <tr ${rowStyle}>
+                        <td class="fw-bold text-primary">${u.name}</td>
+                        <td><input type="text" class="form-control text-center" value="${u.resident}" ${disabledAttr} onchange="updateUnitResident(${index}, this.value)"></td>
+                        <td><input type="text" class="form-control text-center" value="${u.phone}" ${disabledAttr} onchange="updateUnitPhone(${index}, this.value)"></td>
+                        <td><input type="number" class="form-control text-center" value="${u.persons}" min="1" ${u.isEmpty || role !== "admin" ? 'disabled' : ''} onchange="updateUnitPersons(${index}, this.value)"></td>
+                        <td>
+                            <div class="form-check form-switch d-flex justify-content-center align-items-center gap-2">
+                                <input class="form-check-input cursor-pointer" type="checkbox" id="emptyCheck_${index}" ${isChecked} ${disabledAttr} onchange="updateUnitEmptyStatus(${index}, this.checked)">
+                                <label class="form-check-label fw-bold ${u.isEmpty ? 'text-danger' : 'text-muted'}" for="emptyCheck_${index}">
+                                    ${u.isEmpty ? 'بدون ساکن (معاف از آب)' : 'دارای ساکن'}
+                                </label>
+                            </div>
+                        </td>
+                        ${adminPassTd}
+                    </tr>
+                `;
+            });
+        }
+
+        function updateUnitResident(index, val) { units[index].resident = val; getCurrentData().unitsState[index].resident = val; persistAll(); renderAll(); }
+        function updateUnitPhone(index, val) { units[index].phone = val; getCurrentData().unitsState[index].phone = val; persistAll(); renderAll(); }
+        function updateUnitPass(index, val) { units[index].pass = val; persistAll(); }
+        function updateUnitPersons(index, val) {
+            units[index].persons = parseInt(val) || 1;
+            getCurrentData().unitsState[index].persons = units[index].persons;
+            cascadeRollover(); persistAll(); renderAll();
+        }
+        function updateUnitEmptyStatus(index, isChecked) {
+            units[index].isEmpty = isChecked;
+            getCurrentData().unitsState[index].isEmpty = isChecked;
+            cascadeRollover(); persistAll(); renderAll();
+        }
+
+        function renderExpenses() {
+            let data = getCurrentData();
+            const tbody = document.getElementById('expensesTableBody');
+            tbody.innerHTML = '';
+            let total = 0;
+            if(data.expenses.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="${role === 'admin' ? 6 : 5}" class="text-muted py-4">هیچ فاکتوری ثبت نشده است.</td></tr>`;
+                document.getElementById('totalExpenseAmountSum').innerText = "۰ تومان";
+                return;
+            }
+            data.expenses.forEach((e, index) => {
+                total += e.amount;
+                let scopeLabel = e.targetUnit ? `<span class="badge bg-warning text-dark">اختصاصی (${e.targetUnit})</span>` : `<span class="badge bg-secondary">عمومی ساختمان</span>`;
+                let imgHtml = e.image ? `<img src="${e.image}" class="invoice-img-thumb" onclick="showImage('${e.image}')" title="نمایش فاکتور">` : `<span class="text-muted">-</span>`;
+                let opTd = role === 'admin' ? `<td class="no-print exp-op-col">
+                    <button class="btn btn-sm btn-outline-primary me-1" onclick="editExpense(${index})"><i class="fa-solid fa-pen"></i></button>
+                    <button class="btn btn-sm btn-outline-danger" onclick="deleteExpense(${index})"><i class="fa-solid fa-trash"></i></button>
+                </td>` : '';
+
+                tbody.innerHTML += `
+                    <tr>
+                        <td><span class="badge bg-primary px-3 py-2">${e.type}</span></td>
+                        <td>${scopeLabel}</td>
+                        <td class="fw-bold">${formatNum(e.amount)} تومان</td>
+                        <td><small class="d-block text-muted">${e.date}</small>${e.desc || '-'}</td>
+                        <td>${imgHtml}</td>
+                        ${opTd}
+                    </tr>
+                `;
+            });
+            document.getElementById('totalExpenseAmountSum').innerText = `${formatNum(total)} تومان`;
+        }
+
+        function showImage(src) {
+            document.getElementById('modalImage').src = src;
+            new bootstrap.Modal(document.getElementById('imageModal')).show();
+        }
+
+        function editExpense(index) {
+            if(role !== 'admin') return;
+            let exp = getCurrentData().expenses[index];
+            if (!exp) return;
+            document.getElementById('editExpenseIndex').value = index;
+            document.getElementById('expScope').value = exp.scope;
+            toggleUnitSelect(exp.scope);
+            if (exp.targetUnit) document.getElementById('expTargetUnit').value = exp.targetUnit;
+            document.getElementById('expType').value = exp.type;
+            document.getElementById('expAmount').value = formatNum(exp.amount);
+            document.getElementById('expDate').value = exp.date;
+            document.getElementById('expDesc').value = exp.desc || '';
+            document.getElementById('expenseForm').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function resetExpenseForm() {
+            document.getElementById('expenseForm').reset();
+            document.getElementById('editExpenseIndex').value = "-1";
+            document.getElementById('unitSelectDiv').classList.add('d-none');
+        }
+
+        function addOrUpdateExpense(e) {
+            e.preventDefault();
+            if(role !== 'admin') return;
+            let data = getCurrentData();
+            const editIndex = parseInt(document.getElementById('editExpenseIndex').value);
+            const scope = document.getElementById('expScope').value;
+            const targetUnit = scope === 'unit' ? document.getElementById('expTargetUnit').value : null;
+            const type = document.getElementById('expType').value;
+            const amount = parseRawNum(document.getElementById('expAmount').value);
+            const date = document.getElementById('expDate').value;
+            const desc = document.getElementById('expDesc').value;
+            const imageInput = document.getElementById('expImage');
+
+            if(amount <= 0) return alert('لطفاً مبلغ معتبری وارد کنید.');
+            let existingImage = editIndex >= 0 ? data.expenses[editIndex].image : null;
+
+            if(imageInput.files && imageInput.files[0]) {
+                let reader = new FileReader();
+                reader.onload = (ev) => saveExpenseData(editIndex, { scope, targetUnit, type, amount, date, desc, image: ev.target.result });
+                reader.readAsDataURL(imageInput.files[0]);
+            } else {
+                saveExpenseData(editIndex, { scope, targetUnit, type, amount, date, desc, image: existingImage });
+            }
+        }
+
+        function saveExpenseData(editIndex, expObj) {
+            let data = getCurrentData();
+            if (editIndex >= 0) data.expenses[editIndex] = expObj;
+            else data.expenses.push(expObj);
+            resetExpenseForm();
+            cascadeRollover(); persistAll(); renderAll();
+        }
+
+        function deleteExpense(index) {
+            if (role !== 'admin' || !confirm('حذف این فاکتور؟')) return;
+            getCurrentData().expenses.splice(index, 1);
+            cascadeRollover(); persistAll(); renderAll();
+        }
+
+        function renderCharges() {
+            let data = getCurrentData();
+            const tbody = document.getElementById('chargesTableBody');
+            tbody.innerHTML = '';
+
+            let waterExpenses = data.expenses.filter(e => e.scope === 'general' && e.type === "قبض آب").reduce((sum, e) => sum + e.amount, 0);
+            let otherGeneralExpenses = data.expenses.filter(e => e.scope === 'general' && e.type !== "قبض آب" && e.type !== "شارژ ثابت").reduce((sum, e) => sum + e.amount, 0);
+            let fixedTotalPerUnit = data.expenses.filter(e => e.type === "شارژ ثابت").reduce((sum, e) => sum + e.amount, 0);
+
+            document.getElementById('totalFixedBadge').innerText = `کل شارژ ثابت: ${formatNum(fixedTotalPerUnit)}`;
+            document.getElementById('totalWaterBadge').innerText = `کل آب: ${formatNum(waterExpenses)}`;
+            document.getElementById('totalOtherBadge').innerText = `کل سایر: ${formatNum(otherGeneralExpenses)}`;
+
+            let activePersons = data.unitsState.filter(u => !u.isEmpty).reduce((sum, u) => sum + u.persons, 0);
+            let waterPerPerson = activePersons > 0 ? waterExpenses / activePersons : 0;
+            let otherPerUnit = otherGeneralExpenses / data.unitsState.length;
+
+            let unitsToRender = data.unitsState;
+            if (role === "resident") {
+                unitsToRender = data.unitsState.filter(u => u.name === currentResidentUnit);
+                document.getElementById('chargesSubTitle').innerText = `پنل اختصاصی حساب‌کتاب ${currentResidentUnit}`;
+            } else {
+                document.getElementById('chargesSubTitle').innerText = `شارژ ثابت (عین مبلغ) | آب (بر اساس نفرات - بدون ساکن معاف) | سایر هزینه‌ها (مساوی)`;
+            }
+
+            unitsToRender.forEach((u) => {
+                let originalIndex = data.unitsState.findIndex(item => item.name === u.name);
+                let waterShare = u.isEmpty ? 0 : Math.round(u.persons * waterPerPerson);
+                let otherShare = Math.round(otherPerUnit);
+                let fixedShare = fixedTotalPerUnit;
+                let unitSpecificExpense = data.expenses.filter(e => e.scope === 'unit' && e.targetUnit === u.name).reduce((sum, e) => sum + e.amount, 0);
+
+                let totalDebt = waterShare + otherShare + fixedShare + unitSpecificExpense + u.prevBalance;
+                let finalBalance = totalDebt - u.payment;
+
+                let balanceText = finalBalance === 0 ? '<span class="badge bg-success px-2 py-1">تسویه</span>' :
+                                  finalBalance > 0 ? `<span class="text-danger fw-bold">${formatNum(finalBalance)} بدهکار</span>` :
+                                  `<span class="text-success fw-bold">${formatNum(Math.abs(finalBalance))} بستانکار</span>`;
+
+                let paymentTd = (role === "admin") ? 
+                    `<input type="text" class="form-control text-center mx-auto dir-ltr" style="max-width: 110px;" value="${u.payment > 0 ? formatNum(u.payment) : ''}" placeholder="۰" oninput="formatInputThousand(this)" onchange="dataUnitsPayment(${originalIndex}, this.value)">` :
+                    `<span class="fw-bold text-success">${u.payment > 0 ? formatNum(u.payment) + ' تومان' : '۰'}</span>`;
+
+                let rowStyle = (role === "resident") ? 'style="background-color: #f0f9ff; font-size: 0.95rem;"' : '';
+
+                tbody.innerHTML += `
+                    <tr ${rowStyle}>
+                        <td class="fw-bold text-primary">${u.name}</td>
+                        <td><div class="fw-bold">${u.resident}</div>${u.isEmpty ? '<span class="badge bg-danger mt-1">بدون ساکن</span>' : ''}</td>
+                        <td>${u.isEmpty ? '-' : u.persons}</td>
+                        <td>${formatNum(fixedShare)}</td>
+                        <td>${u.isEmpty ? '<span class="badge bg-danger">معاف (۰)</span>' : formatNum(waterShare)}</td>
+                        <td>${formatNum(otherShare)}</td>
+                        <td>${formatNum(u.prevBalance)}</td>
+                        <td class="fw-bold">${formatNum(totalDebt)}</td>
+                        <td>${paymentTd}</td>
+                        <td>${balanceText}</td>
+                    </tr>
+                `;
+            });
+        }
+
+        function dataUnitsPayment(index, val) {
+            if(role !== 'admin') return;
+            getCurrentData().unitsState[index].payment = parseRawNum(val);
+            cascadeRollover(); persistAll(); renderAll();
+        }
+
+        function cascadeRollover() {
+            let mIdx = monthsList.indexOf(currentMonth);
+            let y = currentYear;
+            let currD = getCurrentData();
+
+            let waterExp = currD.expenses.filter(e => e.scope === 'general' && e.type === "قبض آب").reduce((s, e) => s + e.amount, 0);
+            let otherExp = currD.expenses.filter(e => e.scope === 'general' && e.type !== "قبض آب" && e.type !== "شارژ ثابت").reduce((s, e) => s + e.amount, 0);
+            let fixedTotal = currD.expenses.filter(e => e.type === "شارژ ثابت").reduce((s, e) => s + e.amount, 0);
+            
+            let activePersons = currD.unitsState.filter(u => !u.isEmpty).reduce((s, u) => s + u.persons, 0);
+            let wPerP = activePersons > 0 ? waterExp / activePersons : 0;
+            let oPerU = otherExp / currD.unitsState.length;
+
+            let endBalances = {};
+            currD.unitsState.forEach((u) => {
+                let wShare = u.isEmpty ? 0 : Math.round(u.persons * wPerP);
+                let oShare = Math.round(oPerU);
+                let fShare = fixedTotal;
+                let uSpec = currD.expenses.filter(e => e.scope === 'unit' && e.targetUnit === u.name).reduce((s, e) => s + e.amount, 0);
+                let tDebt = wShare + oShare + fShare + uSpec + u.prevBalance;
+                endBalances[u.name] = tDebt - u.payment;
+            });
+
+            let nextMonth = mIdx < 11 ? monthsList[mIdx + 1] : "فروردین";
+            let nextYear = mIdx < 11 ? y : (parseInt(y) + 1).toString();
+            let nextKey = getPeriodKey(nextYear, nextMonth);
+
+            if (periodData[nextKey]) {
+                periodData[nextKey].unitsState.forEach(u => {
+                    if(endBalances[u.name] !== undefined) u.prevBalance = endBalances[u.name];
+                });
+            }
+        }
+
+        function renderTreasury() {
+            let data = getCurrentData();
+            let totalIncome = data.unitsState.reduce((sum, u) => sum + u.payment, 0);
+            let totalExpense = data.expenses.reduce((sum, e) => sum + e.amount, 0);
+            let balance = totalIncome - totalExpense;
+
+            let grandTotalIncome = 0, grandTotalExpense = 0;
+            for (let pKey in periodData) {
+                let p = periodData[pKey];
+                if (p.unitsState) grandTotalIncome += p.unitsState.reduce((sum, u) => sum + u.payment, 0);
+                if (p.expenses) grandTotalExpense += p.expenses.reduce((sum, e) => sum + e.amount, 0);
+            }
+
+            let grandBalance = grandTotalIncome - grandTotalExpense + initialBalance;
+
+            document.getElementById('statIncome').innerText = `${formatNum(totalIncome)} تومان`;
+            document.getElementById('statExpense').innerText = `${formatNum(totalExpense)} تومان`;
+            document.getElementById('statBalance').innerText = `${formatNum(balance)} تومان`;
+            document.getElementById('statTotalCarry').innerText = `${formatNum(grandBalance)} تومان`;
+            document.getElementById('initialBalanceDisplay').innerText = `${formatNum(initialBalance)} تومان`;
+            let initInput = document.getElementById('initialBalanceInput');
+            if(initInput && !document.activeElement.isSameNode(initInput)) {
+                initInput.value = initialBalance > 0 ? formatNum(initialBalance) : '';
+            }
+        }
+
+        function saveInitialBalance() {
+            if(role !== 'admin') return;
+            let val = parseRawNum(document.getElementById('initialBalanceInput').value);
+            initialBalance = val;
+            persistAll();
+            renderAll();
+            alert('موجودی اولیه صندوق با موفقیت ثبت شد.');
+        }
+
+        function saveUnitsToDB() { persistAll(); alert('تغییرات واحدها ذخیره شد.'); }
+
+        function exportBackup() {
+            let backupObj = { units, periodData, adminPassword, initialBalance, exportDate: new Date().toISOString() };
+            let dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(backupObj));
+            let anchor = document.createElement('a');
+            anchor.setAttribute("href", dataStr);
+            anchor.setAttribute("download", `Yas_Building_Cloud_Backup_${currentYear}_${currentMonth}.json`);
+            document.body.appendChild(anchor); anchor.click(); anchor.remove();
+        }
+
+        function importBackup(event) {
+            let file = event.target.files[0];
+            if (!file) return;
+            let reader = new FileReader();
+            reader.onload = async (e) => {
+                try {
+                    let imported = JSON.parse(e.target.result);
+                    if (imported.periodData && imported.units) {
+                        periodData = imported.periodData;
+                        units = imported.units;
+                        if(imported.adminPassword) adminPassword = imported.adminPassword;
+                        if(imported.initialBalance !== undefined) initialBalance = imported.initialBalance;
+                        await persistAll();
+                        alert('پشتیبان با موفقیت بازیابی شد.');
+                        renderAll();
+                    }
+                } catch(err) { alert('فایل نامعتبر است.'); }
+            };
+            reader.readAsText(file);
+        }
+
+        function renderAll() { renderUnits(); renderExpenses(); renderCharges(); renderTreasury(); }
+
+        window.addEventListener('DOMContentLoaded', async () => {
+            try {
+                await initIndexedDB();
+                let savedUnits = await dbGet("yas_units_base");
+                let savedPeriods = await dbGet("yas_period_data");
+                let savedPass = await dbGet("yas_admin_pass");
+                let savedInit = await dbGet("yas_initial_balance");
+
+                if (savedUnits) units = savedUnits;
+                if (savedPeriods) periodData = savedPeriods;
+                if (savedPass) adminPassword = savedPass;
+                if (savedInit !== null && savedInit !== undefined) initialBalance = savedInit;
+
+                updateLabels();
+            } catch(e) {
+                updateLabels();
+            }
+        });
+
+        function openManageResidentPassModal() {
+            if(role !== 'admin') return;
+            const tbody = document.getElementById('manageResidentPassTableBody');
+            tbody.innerHTML = '';
+            units.forEach((u, index) => {
+                tbody.innerHTML += `
+                    <tr>
+                        <td class="fw-bold text-primary">${u.name}</td>
+                        <td>${u.resident}</td>
+                        <td>
+                            <input type="text" class="form-control text-center dir-ltr fw-bold" id="modalUnitPass_${index}" value="${u.pass || ''}" placeholder="رمز عبور">
+                        </td>
+                        <td>
+                            <button class="btn btn-sm btn-success fw-bold" onclick="saveSingleResidentPassword(${index})">ذخیره این واحد</button>
+                        </td>
+                    </tr>
+                `;
+            });
+            new bootstrap.Modal(document.getElementById('manageResidentPassModal')).show();
+        }
+
+        function saveSingleResidentPassword(index) {
+            if(role !== 'admin') return;
+            let val = document.getElementById(`modalUnitPass_${index}`).value;
+            units[index].pass = val;
+            persistAll();
+            alert(`رمز عبور ${units[index].name} با موفقیت به‌روزرسانی شد.`);
+        }
+
+        function saveAllResidentPasswords() {
+            if(role !== 'admin') return;
+            units.forEach((u, index) => {
+                let input = document.getElementById(`modalUnitPass_${index}`);
+                if(input) {
+                    u.pass = input.value;
+                }
+            });
+            persistAll();
+            alert('تمامی رمزهای عبور ساکنین ذخیره شدند.');
+            bootstrap.Modal.getInstance(document.getElementById('manageResidentPassModal')).hide();
+        }
+    </script>
+</body>
+</html>
